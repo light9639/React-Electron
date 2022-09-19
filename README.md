@@ -17,7 +17,7 @@ cd react-electron code .
 ```bash
 yarn start
 ```
-## :heavy_plus_sign: 프로젝트에 일렉트론 패키지를 추가합니다.
+## :white_check_mark: 프로젝트에 일렉트론 패키지를 추가합니다.
 
 - electron 패키지는 개발시에만 사용하므로 --dev 옵션을 사용합니다.
 ```bash
@@ -71,7 +71,7 @@ app.on('window-all-closed', function () {
 yarn add --dev concurrently wait-on
 ```
 
-## :memo: package.json에 스크립트를 변경합니다.
+## ✍️ package.json에 스크립트를 변경합니다.
 - start 스크립트 수행시 concurrently를 이용해 react와 electron을 같이 시작하게 합니다.
 - electron 스크립트는 react가 완료되길 기다린 후 실행하게 합니다.
 ```bash
