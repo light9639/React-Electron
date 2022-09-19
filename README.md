@@ -84,7 +84,7 @@ yarn add --dev concurrently wait-on
 },
 ```
 
-루트 폴더에 .env 파일을 만들고, 다음 내용을 추가합니다.
+- 루트 폴더에 .env 파일을 만들고, 다음 내용을 추가합니다.
 ```bash
 BROWSER=none
 ```
