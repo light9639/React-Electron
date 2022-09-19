@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# **:zap: React-Electron 기본 템플릿**
+![다운로드](https://user-images.githubusercontent.com/95972251/191018713-30dfef7d-fab7-406d-a7c5-a6c8ff72840f.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## :tada: npx create-react-app을 이용해 react-electron이라는 React 프로젝트를 만듭니다.
 
-## Available Scripts
+```bash
+npx create-react-app react-electron
+```
+## :rocket: 프로젝트 폴더로 이동후 vscode(visual studio code)를 실행합니다.
 
-In the project directory, you can run:
+```bash
+cd react-electron code .
+```
 
-### `yarn start`
+- vscode의 터미널을 열고 yarn start로 프로젝트를 실행하여 프로젝트가 잘 작동하는지 확인합니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+yarn start
+```
+## :heavy_plus_sign: 프로젝트에 일렉트론 패키지를 추가합니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- electron 패키지는 개발시에만 사용하므로 --dev 옵션을 사용합니다.
+```bash
+yarn add --dev electron
+```
+- package.json에서 electron 관련 설정을 추가합니다.
 
-### `yarn test`
+```bash
+"main": "src/main.js" --> 일렉트론의 entry point를 main.js로 설정
+"electron": "electron ." --> 일렉트론 실행 스크립트
+{ ... "main": "src/main.js", 
+  ... "scripts": { 
+       ... "electron": "electron ." 
+       } 
+  ... 
+}
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## :memo: src/main.js를 다음과 같이 만듭니다.
 
-### `yarn build`
+- 이때 리액트 화면을 일렉트론에서 보여주기 위해서, win.loadFile을 win.loadURL("http://localhost:3000")로 변경합니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+const { app, BrowserWindow } = require('electron') 
+const path = require('path') 
+function createWindow () { 
+  const win = new BrowserWindow({ 
+    width: 800, 
+    height: 600, 
+    webPreferences: { 
+      nodeIntegration: true,
+      contextIsolation : false
+    } 
+  }) 
+  win.loadURL("http://localhost:3000")
+} 
+app.whenReady().then(() => { 
+  createWindow() 
+}) 
+app.on('window-all-closed', function () { 
+  if (process.platform !== 'darwin') app.quit() 
+})
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## :heavy_plus_sign: Electron과 React를 같이 실행하기 위해 다음 패키지를 추가합니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- concurrently : 일렉트론과 리액트 프로세스를 동시에 실행하기 위해 사용합니다.
+- wait-on : 프로세스 동시 수행시 한개의 프로세스가 완료되기를 기다리다 완료된 후 다음 프로세스를 수행하게 만들어 줍니다.
 
-### `yarn eject`
+```bash
+yarn add --dev concurrently wait-on
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## :memo: package.json에 스크립트를 변경합니다.
+- start 스크립트 수행시 concurrently를 이용해 react와 electron을 같이 시작하게 합니다.
+- electron 스크립트는 react가 완료되길 기다린 후 실행하게 합니다.
+```bash
+"scripts": {
+    "start": "concurrently \"yarn react-scripts start\" \"yarn electron\" ",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron": "wait-on http://localhost:3000 && electron ."
+},
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+루트 폴더에 .env 파일을 만들고, 다음 내용을 추가합니다.
+```bash
+BROWSER=none
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## **:paperclip: 출처**
+- 출처 : https://codegear.tistory.com/36
