@@ -1,6 +1,8 @@
 # **:zap: React-Electron 기본 템플릿**
 ![다운로드](https://user-images.githubusercontent.com/95972251/191018713-30dfef7d-fab7-406d-a7c5-a6c8ff72840f.png)
 
+**:sparkles: React-Electron 기본 템플릿 :sparkles:**
+
 ## :tada: npx create-react-app을 이용해 react-electron이라는 React 프로젝트를 만듭니다.
 
 ```bash
