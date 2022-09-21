@@ -17,7 +17,7 @@ cd react-electron code .
 ```bash
 yarn start
 ```
-## :white_check_mark: 프로젝트에 일렉트론 패키지를 추가합니다.
+## :zap: 프로젝트에 일렉트론 패키지를 추가합니다.
 
 - electron 패키지는 개발시에만 사용하므로 --dev 옵션을 사용합니다.
 ```bash
@@ -62,7 +62,7 @@ app.on('window-all-closed', function () {
 })
 ```
 
-## :heavy_plus_sign: Electron과 React를 같이 실행하기 위해 다음 패키지를 추가합니다.
+## :zap: Electron과 React를 같이 실행하기 위해 다음 패키지를 추가합니다.
 
 - concurrently : 일렉트론과 리액트 프로세스를 동시에 실행하기 위해 사용합니다.
 - wait-on : 프로세스 동시 수행시 한개의 프로세스가 완료되기를 기다리다 완료된 후 다음 프로세스를 수행하게 만들어 줍니다.
